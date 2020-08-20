@@ -34,7 +34,6 @@ export default class App extends Component {
 
   render() {
     const { showUsers, users } = this.state;
-    console.log(showUsers);
     return (
       <div>
         <div className="switch">
