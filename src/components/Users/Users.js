@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import User from './User.js'
 
 export default class Users extends Component {
   constructor() {
@@ -10,6 +11,7 @@ export default class Users extends Component {
 
     this.interval = null;
   }
+
   componentDidMount() {
     console.log('componentDidMount de Users.js');
 
@@ -20,12 +22,24 @@ export default class Users extends Component {
       })
     }, 1000);
   }
+
   componentDidUpdate() {
     console.log('componentDidUpdate de Users.js');
   }
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
+
+  renderli(user) {
+    const { login, name, picture } = user;
+    return (
+      <li key={login.uuid}>
+        <User user={user} />
+      </li>
+    )
+  }
+
   render() {
     const { users } = this.props;
     const {secondsVisible} = this.state;
@@ -33,10 +47,9 @@ export default class Users extends Component {
     return (
       <div>
         <p>Component Users visível por {secondsVisible} segundos</p>
-        {users.map((user) => {
-        const { login, name, picture } = user;
-        return <p key={login.uuid}>{name.first}</p>;
-        })}
+        <ul>
+          {users.map(this.renderli)}
+        </ul>
       </div>
     );
   }
